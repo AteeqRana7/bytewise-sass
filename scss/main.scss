@@ -1,59 +1,67 @@
-@import "./resets", "./variables";
-
-@function weigth($weight-name) {
-  @return map-get($font-weights, $weight-name);
-}
-
-@mixin flexCenter($direction) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin theme($light-theme: true) {
-  @if $light-theme {
-    background: lighten($primary-color, 100%);
-    color: darken($text-color, 100%);
-  }
-}
-
-@mixin mobile {
-  @media (max-width: $mobile) {
-    @content;
-  }
-}
+@import "config";
+@import "home";
+@import "menu";
+@import "about";
+@import "projects";
+@import "contact";
+@import "responsive";
 
 body {
-  background-color: $primary-color;
-  color: $text-color;
+  background: $primary-color;
+  color: set-text-color($primary-color);
+  height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1;
 }
 
-.main {
-  @include flexCenter(row);
-  width: 80%;
-  margin: 0 auto;
+h1,
+h2,
+h3 {
+  font-weight: 400;
+}
 
-  #{&}__paragraph1 {
-    font-weight: weigth(bold);
-    &:hover {
-      color: pink;
+a {
+  color: set-text-color($primary-color);
+  text-decoration: none;
+}
+
+.text-secondary {
+  color: $secondary-color;
+}
+
+header {
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  padding: 1rem;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+
+  .social-icons {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+
+    a {
+      padding: 0.4rem;
+      @include transition-ease;
+
+      &:hover {
+        color: $secondary-color;
+      }
     }
-  }
-
-  #{&}__paragraph2 {
-    @extend .main__paragraph1;
-
-    &:hover {
-      color: $accent-color;
-    }
-  }
-
-  @include mobile {
-    flex-direction: column;
   }
 }
 
-.light {
-  @include theme($light-theme: true);
+footer {
+  font-size: 1rem;
+  position: fixed;
+  bottom: 0.4rem;
+  right: 1rem;
+  text-align: right;
+  padding: 1rem;
+  color: set-text-color($primary-color);
 }
